@@ -213,7 +213,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
 
 		    }
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Log.e("Failed to execute " + file, e);
 
 		} finally {
@@ -231,7 +231,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
 	    }
 	}
 
-	private void executeLegacySqlScript(SQLiteDatabase db, InputStream stream) throws IOException {
+	private void executeLegacySqlScript(SQLiteDatabase db, InputStream stream) throws Exception {
 
 	    InputStreamReader reader = null;
         BufferedReader buffer = null;
@@ -244,7 +244,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
             while ((line = buffer.readLine()) != null) {
                 line = line.replace(";", "").trim();
                 if (!TextUtils.isEmpty(line)) {
-                    db.execSQL(line);
+					db.execSQL(line);
                 }
             }
 
