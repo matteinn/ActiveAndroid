@@ -17,6 +17,7 @@ package com.activeandroid.util;
  */
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.text.TextUtils;
 
@@ -33,6 +34,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,15 +97,27 @@ public final class SQLiteUtils {
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	public static void execSql(String sql) {
-		Cache.openDatabase().execSQL(sql);
+		SQLiteDatabase db = Cache.openDatabase();
+		if(db == null){
+			return;
+		}
+		db.execSQL(sql);
 	}
 
 	public static void execSql(String sql, Object[] bindArgs) {
-		Cache.openDatabase().execSQL(sql, bindArgs);
+		SQLiteDatabase db = Cache.openDatabase();
+		if(db == null){
+			return;
+		}
+		db.execSQL(sql, bindArgs);
 	}
 
 	public static <T extends Model> List<T> rawQuery(Class<? extends Model> type, String sql, String[] selectionArgs) {
-		Cursor cursor = Cache.openDatabase().rawQuery(sql, selectionArgs);
+		SQLiteDatabase db = Cache.openDatabase();
+		if(db == null){
+			return Collections.emptyList();
+		}
+		Cursor cursor = db.rawQuery(sql, selectionArgs);
 		List<T> entities = processCursor(type, cursor);
 		cursor.close();
 
@@ -111,7 +125,11 @@ public final class SQLiteUtils {
 	}
 	  
 	public static int intQuery(final String sql, final String[] selectionArgs) {
-        final Cursor cursor = Cache.openDatabase().rawQuery(sql, selectionArgs);
+		SQLiteDatabase db = Cache.openDatabase();
+		if(db == null){
+			return 0;
+		}
+        final Cursor cursor = db.rawQuery(sql, selectionArgs);
         final int number = processIntCursor(cursor);
         cursor.close();
 

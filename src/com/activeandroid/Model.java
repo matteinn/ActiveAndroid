@@ -64,7 +64,11 @@ public abstract class Model {
 	}
 
 	public final void delete() {
-		Cache.openDatabase().delete(mTableInfo.getTableName(), idName+"=?", new String[] { getId().toString() });
+		final SQLiteDatabase db = Cache.openDatabase();
+		if(db == null){
+			return;
+		}
+		db.delete(mTableInfo.getTableName(), idName+"=?", new String[] { getId().toString() });
 		Cache.removeEntity(this);
 
 		Cache.getContext().getContentResolver()
@@ -73,6 +77,9 @@ public abstract class Model {
 
 	public final Long save() {
 		final SQLiteDatabase db = Cache.openDatabase();
+		if(db == null){
+			return -1L;
+		}
 		final ContentValues values = new ContentValues();
 
 		for (Field field : mTableInfo.getFields()) {
