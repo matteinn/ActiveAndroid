@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/pardom/ActiveAndroid.png?branch=master)](https://travis-ci.org/pardom/ActiveAndroid) [![Stories in Ready](https://badge.waffle.io/pardom/ActiveAndroid.png)](http://waffle.io/pardom/ActiveAndroid)  
 # ActiveAndroid
 
 ActiveAndroid is an active record style ORM ([object relational mapper](http://en.wikipedia.org/wiki/Object-relational_mapping)). What does that mean exactly? Well, ActiveAndroid allows you to save and retrieve SQLite database records without ever writing a single SQL statement. Each database record is wrapped neatly into a class with methods like _save()_ and _delete()_.
@@ -7,22 +6,15 @@ ActiveAndroid does so much more than this though. Accessing the database is a ha
 
 ## Download
 
-Grab via Maven:
-```xml
-<dependency>
-  <groupId>com.michaelpardo</groupId>
-  <artifactId>activeandroid</artifactId>
-  <version>3.1.0-SNAPSHOT</version>
-</dependency>
-```
+Grab via Gradle:
 or Gradle:
 ```groovy
 repositories {
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    ...
+    maven { url 'https://jitpack.io' }
 }
 
-compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+implementation 'com.github.matteinn:activeandroid:3.2.4'
 ```
 
 ## Documentation
